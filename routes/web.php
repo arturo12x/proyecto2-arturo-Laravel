@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\alumnoController;
 
+use App\Http\Controllers\adminController;
+
 
 
 
@@ -16,9 +18,13 @@ Route::get('/contacto',[alumnoController::class,'contacto'])->name('contacto');
 
 Route::get('/carrera',[alumnoController::class,'carreras'])->name('carreras');
 
-Route::get('/menulog/{nom?}',[alumnoController::class,'menulog'])->name('menulog')->middleware('auth');
+Route::get('/menulog/{nom?}',[AlumnoController::class, 'menulog'])->name('menulog')->middleware('auth');
+
 
 Route::get('/logout',[alumnoController::class,'logout'])->name('logout');
+
+
+Route::resource('/admin',adminController::class);
 
 /*
 |--------------------------------------------------------------------------

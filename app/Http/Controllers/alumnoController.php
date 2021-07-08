@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use Validator;
 
 use Illuminate\Http\Request;
@@ -12,75 +13,85 @@ class alumnoController extends Controller
 
 
 {
-    public function index(){
+    public function index()
+    {
         return view('index');
     }
-    public function login(){
+    public function login()
+    {
         return view('login');
     }
 
-    public function datos(Request $request){
+    public function datos(Request $request)
+    {
         $request->validate([
-            'email'=>'required',
-            'password'=>'required',
-            'captcha'=>'required|captcha|',
+            'email' => 'required',
+            'password' => 'required',
+            'captcha' => 'required|captcha|',
         ]);
 
 
-$credentials=$request->only('email','password');
+        $credentials = $request->only('email', 'password');
 
 
-$usr=$request->only('email');
-$res= DB::table('users')->where('email','=',$usr)->first();
-
-//verificas que realmente me este devolviendo datos de la BD
-//$materias= DB::table('users')->get();
-//dump($materias);
-      //  $user= DB::table('users')->get();
+        $usr = $request->input('email');
+        $res = DB::table('users')->where('email', '=', $usr)->first();
 
 
-if(Auth::attempt($credentials)){
-return redirect(route('menulog')."?nom=$res->name")->with('id',$res->id);
+        session(['id' => $res->id]);
 
-}else{
-return redirect(route('login'));
+      //verificas que realmente me este devolviendo datos de la BD
+        //$materias= DB::table('users')->get();
+        //dump($materias);
+        //  $user= DB::table('users')->get();
 
-}
 
-//dump($credentials);
+        if (Auth::attempt($credentials)) {
+            return redirect(route('menulog'));
+            // return redirect(route('menulog') , "?nom=$res->name")->with('id', $res->id);
+        } else {
+            return redirect(route('login'));
+        }
+
+        //dump($credentials);
 
     }
 
-    public function menulog(Request  $request){
+    public function menulog(Request $request)
+    {
 
-        $nom=$request->input('nom');
+        $id = session('id');
+        $res = DB::table('users')->where('id', '=', $id)->first();
 
-        $id= DB::table('users')->where('name','=',$nom)->first();
+
 
         $materias = DB::table('materias')
-            ->join('alumnoMateria','alumnoMateria.idSemestre','=','materias.id')
-            ->where('alumnoMateria.idAlumno','=',$id->id)->get();
+            ->join('alumnoMateria', 'alumnoMateria.idSemestre', '=', 'materias.id')
+            ->where('alumnoMateria.idAlumno', '=', $res->id)->get();
 
 
-        return view('menulog',[
-            'materias'=>$materias]);
-
+        return view('menulog', [
+            'materias' => $materias,
+            'nom' => $res->name
+        ]);
     }
 
 
-    public function contacto(){
+    public function contacto()
+    {
         return view('contacto');
     }
-    public function carreras(){
+    public function carreras()
+    {
         return view('carreras');
     }
 
-    public function logout(Request $request){
+    public function logout(Request $request)
+    {
         Auth::logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
         return redirect(route('login'));
     }
-
 }

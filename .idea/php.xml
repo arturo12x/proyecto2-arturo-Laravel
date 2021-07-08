@@ -109,6 +109,7 @@
       <path value="$PROJECT_DIR$/vendor/nikic/php-parser" />
       <path value="$PROJECT_DIR$/vendor/intervention/image" />
       <path value="$PROJECT_DIR$/vendor/mews/captcha" />
+      <path value="$PROJECT_DIR$/vendor/spatie/laravel-permission" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.3" />
