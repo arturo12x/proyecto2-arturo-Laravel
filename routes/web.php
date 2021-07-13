@@ -1,31 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\alumnoController;
-
-use App\Http\Controllers\adminController;
-
-
-
-
-Route::get('/',[alumnoController::class,'index'])->name('index');
-
-Route::get('/login',[alumnoController::class,'login'])->name('login')->middleware('guest');
-
-Route::post('/datos',[alumnoController::class,'datos'])->name('datos');
-
-Route::get('/contacto',[alumnoController::class,'contacto'])->name('contacto');
-
-Route::get('/carrera',[alumnoController::class,'carreras'])->name('carreras');
-
-Route::get('/menulog/{nom?}',[AlumnoController::class, 'menulog'])->name('menulog')->middleware('auth');
-
-
-Route::get('/logout',[alumnoController::class,'logout'])->name('logout');
-
-
-Route::resource('/admin',adminController::class);
-
+use App\Http\Controllers;
+use App\Http\Controllers\AlumnoController;
+use App\Http\Controllers\AdminController; 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,3 +19,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 */
+Route::get('/', [AlumnoController::class, 'index'])->name('index');
+Route::get('/utlag.login', [AlumnoController::class, 'login'])->name('login')->middleware('guest');
+Route::post('/utlag.datos', [AlumnoController::class, 'datos'])->name('datos');
+Route::get('/utlag.menulog/{nom?}', [AlumnoController::class, 'menulog'])->name('menulog')->middleware('auth');
+Route::get('/utlag.logout', [AlumnoController::class, 'logout'])->name('logout');
+Route::get('/layouts', [AlumnoController::class, 'layaout']);
+Route::resource('/admin', AdminController::class);
+
+
+

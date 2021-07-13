@@ -1,21 +1,20 @@
-@extends('layouts.plantilla')
+@extends('layaouts.plantilla')
+
 @section('contenido')
 <div class="row justify-content-center">
-<div class="col-6">
+    <div class="col-6">
+        <h1>Menu logeados: {{$nom}}</h1>
+        <ul>
+            
+            @foreach ( $materias as $m )
+              <li> {{$m->materia}} -- {{$m->cuatri}} </li>  
+            @endforeach
 
-    <h1>Menu logeados</h1>
+        </ul>
 
-    <ul>
-        @foreach($materias as $materias)
-            <li>{{$materias->materia}} -- {{$materias->cuatri}}</li>
-        @endforeach
-    </ul>
-
-</div>
-
-
+    </div>
+   
 
 </div>
 
 @stop
-

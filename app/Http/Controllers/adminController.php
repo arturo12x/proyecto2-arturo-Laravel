@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//librerias para poderlas utilizar
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-
-
-class adminController extends Controller
+class AdminController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,9 +15,11 @@ class adminController extends Controller
      */
     public function index()
     {
-        //
+    
+        //Creación de la vista de index para poder llamar
+     return view('admin.index');
 
-        return view('admin.index');
+      
     }
 
     /**
@@ -28,7 +29,13 @@ class adminController extends Controller
      */
     public function create()
     {
-        //
+        //Aqui vamos aponer los datos para poder ejecutar
+        //paginate nos sierve para mostrar cuantos datos
+        //por pagina queremos mostrar
+        $data = DB::table('users')->paginate(6);
+                //Select * from users(Solo muestra 6)
+      
+       return view('admin.create', compact('data'));
     }
 
     /**
@@ -39,17 +46,18 @@ class adminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //Recibimos los parametros de la vista
         $name = $request->input('name');
         $email = $request->input('email');
         $password = $request->input('password');
-
+        //Verificación de que estan llegando los parametros
+        //dd($name, $email, $password);
         DB::table('users')->insert([
-            'name' => $name,
-            'email' => $email,
-            'password' => Hash::make($password)
+            'name'=>$name,
+            'email'=>$email,
+            'password'=>Hash::make($password)
         ]);
-
+       
         return view('admin.index')->with('resp', 'si');
     }
 
@@ -61,8 +69,10 @@ class adminController extends Controller
      */
     public function show($id)
     {
-        //
+        
     }
+
+   
 
     /**
      * Show the form for editing the specified resource.
@@ -72,7 +82,10 @@ class adminController extends Controller
      */
     public function edit($id)
     {
-        //
+        //Edición de usuarios
+        //Recopilación de datos
+        $data = DB::table('users')->where('id', '=', $id)->first();
+        return view('admin.edit', compact('data'));
     }
 
     /**

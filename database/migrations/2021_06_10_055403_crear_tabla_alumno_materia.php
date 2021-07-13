@@ -14,12 +14,12 @@ class CrearTablaAlumnoMateria extends Migration
     public function up()
     {
         Schema::create('alumnoMateria', function (Blueprint $table) {
+            //
             $table->id();
             $table->foreignId('idAlumno')->constrained('users');
-            $table->foreignId('isSemestre')->constrained('materias');
-$table->string('letra');
-$table->float('calif');
-
+            $table->foreignId('idSemestre')->constrained('materias');
+            $table->string('letra');
+            $table->float('calif');
         });
     }
 
@@ -31,8 +31,8 @@ $table->float('calif');
     public function down()
     {
         Schema::table('alumnoMateria', function (Blueprint $table) {
+            //
             Schema::drop('alumnoMateria');
-
         });
     }
 }

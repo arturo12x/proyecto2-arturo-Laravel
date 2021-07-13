@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CrearTabla extends Migration
+class CrearTablaMateria extends Migration
 {
     /**
      * Run the migrations.
@@ -32,7 +32,6 @@ class CrearTabla extends Migration
     {
         Schema::table('materias', function (Blueprint $table) {
             Schema::drop('materias');
-
         });
     }
 }

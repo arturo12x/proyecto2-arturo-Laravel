@@ -17,7 +17,7 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-    public const HOME = '/menulog';
+    public const HOME = '/utlag.menulog';
 
     /**
      * The controller namespace for the application.

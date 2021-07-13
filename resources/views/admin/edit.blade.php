@@ -1,4 +1,5 @@
 @extends('layaouts.plantilla')
+
 @section('contenido')
-<h1>Aquí va ir un carrucel de imagenes</h1>
+El usuario a editar es {{$data->name}}
 @stop
