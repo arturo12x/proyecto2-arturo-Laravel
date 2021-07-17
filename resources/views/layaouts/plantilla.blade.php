@@ -36,7 +36,22 @@
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li><a class="dropdown-item" href="{{route('admin.index')}}">Ingreso de usuarios</a></li>
-                  <li><a class="dropdown-item" href="{{route('admin.create')}}">Asignacion Usuario</a></li>
+                  <li><a class="dropdown-item" href="{{route('admin.create')}}">Asignacion alumno</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+              </li>
+
+
+
+
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+               Docente: {{Auth::user()->name}}
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="{{route('docente.index')}}">Asignar materias</a></li>
+                  <li><a class="dropdown-item" href="#">Calificar</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Something else here</a></li>
                 </ul>

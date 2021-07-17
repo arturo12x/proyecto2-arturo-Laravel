@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 //librerias para poderlas utilizar
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+
 class AdminController extends Controller
 {
     /**
@@ -15,11 +16,9 @@ class AdminController extends Controller
      */
     public function index()
     {
-    
-        //Creación de la vista de index para poder llamar
-     return view('admin.index');
 
-      
+        //Creación de la vista de index para poder llamar
+        return view('admin.index');
     }
 
     /**
@@ -29,13 +28,10 @@ class AdminController extends Controller
      */
     public function create()
     {
-        //Aqui vamos aponer los datos para poder ejecutar
-        //paginate nos sierve para mostrar cuantos datos
-        //por pagina queremos mostrar
+
         $data = DB::table('users')->paginate(6);
-                //Select * from users(Solo muestra 6)
-      
-       return view('admin.create', compact('data'));
+
+        return view('admin.create', compact('data'));
     }
 
     /**
@@ -46,18 +42,16 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //Recibimos los parametros de la vista
         $name = $request->input('name');
         $email = $request->input('email');
         $password = $request->input('password');
-        //Verificación de que estan llegando los parametros
-        //dd($name, $email, $password);
+
         DB::table('users')->insert([
-            'name'=>$name,
-            'email'=>$email,
-            'password'=>Hash::make($password)
+            'name' => $name,
+            'email' => $email,
+            'password' => Hash::make($password)
         ]);
-       
+
         return view('admin.index')->with('resp', 'si');
     }
 
@@ -69,10 +63,10 @@ class AdminController extends Controller
      */
     public function show($id)
     {
-        
+ 
     }
 
-   
+
 
     /**
      * Show the form for editing the specified resource.
@@ -82,10 +76,45 @@ class AdminController extends Controller
      */
     public function edit($id)
     {
-        //Edición de usuarios
-        //Recopilación de datos
+
+if(isset($_GET['cuatri']) && $_GET['cuatri']!=0){
+    
+$materias=DB::table('materias')->where('cuatri','=',$_GET['cuatri'])->get();
+}else{
+    $materias= [0];
+}
         $data = DB::table('users')->where('id', '=', $id)->first();
-        return view('admin.edit', compact('data'));
+
+$cuatri=DB::table('materias')->join('alumnomateria','alumnomateria.idSemestre','=','materias.id')->where('alumnomateria.idAlumno','=',$data->id)->get();
+
+
+if(isset($_GET['cuatri']) && isset($_GET['save'])){
+
+dump($materias,$data->id,$cuatri);
+$resp=$cuatri->where('cuatri',$_GET['cuatri'])->first();
+dump($resp);
+
+if(!$resp){
+    dump('Si guardo');
+
+foreach($materias as $m){
+    DB::table('alumnoMateria')->insert([
+        'idAlumno' =>$data->id,
+        'idSemestre' =>$m->id,
+
+    ]);
+}
+
+
+}
+
+}
+
+else{
+    dump('No guardo');
+}
+
+        return view('admin.edit', ['data' => $data, 'materias' => $materias,'matCursadas' =>$cuatri]);
     }
 
     /**
@@ -97,7 +126,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
