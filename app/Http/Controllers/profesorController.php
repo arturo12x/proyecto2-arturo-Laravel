@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Facade\Ignition\DumpRecorder\Dump;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
