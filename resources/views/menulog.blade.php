@@ -7,7 +7,7 @@
         <ul>
 
             @foreach ( $materias as $m )
-            <li> {{$m->materia}} -- {{$m->cuatri}} </li>
+            <li> {{$m->materia}} -- {{$m->cuatri}} -- {{$m->calif}} </li>
             @endforeach
 
         </ul>

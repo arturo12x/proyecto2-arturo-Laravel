@@ -37,7 +37,26 @@ class ProfesorController extends Controller
     public function create()
     {
 
-return view('profe.create');
+
+$id=session('id');
+$profeMateria= DB::table('materias')
+->join('profemateria','profemateria.idmateria','=','materias.id')
+->where('profemateria.idUser','=',$id)->get();
+
+
+
+if(isset($_GET['cuatri']) && $_GET['cuatri']!=0 && $_GET['buscar']=='si'){
+
+$alumno= DB::table('alumnoMateria')
+->join('users','alumnoMateria.idAlumno','=','users.id')
+->where('alumnoMateria.idSemestre','=',$_GET['cuatri'])->paginate(10);
+dump($alumno);
+
+}else{
+    $alumno[0]=0;
+}
+
+return view('profe.create',compact('profeMateria','alumno'));
 
         //
     }
@@ -50,6 +69,18 @@ return view('profe.create');
      */
     public function store(Request $request)
     {
+        $calif=$request->input('calif');
+      $id=$request->input('id');
+      foreach ($id as $key =>$eva){
+          if($calif[$key]!=null){
+              DB::table('alumnoMateria')
+              ->where('idAlumno','=',$eva)
+              ->update(['calif'=>calif[$key]]);
+          }
+      }
+
+
+
     }
 
     /**
