@@ -4,7 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers;
 use App\Http\Controllers\AlumnoController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\UserController;
+
 use App\Http\Controllers\ProfesorController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +33,5 @@ Route::get('/utlag.logout', [AlumnoController::class, 'logout'])->name('logout')
 Route::get('/layouts', [AlumnoController::class, 'layaout']);
 Route::resource('/admin', AdminController::class);
 Route::resource('/docente', ProfesorController::class);
+Route::resource('/user', UserController::class);
 

@@ -42,6 +42,8 @@
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="{{route('admin.index')}}">Ingreso de usuarios</a></li>
               <li><a class="dropdown-item" href="{{route('admin.create')}}">Asignacion alumno</a></li>
+              <li><a class="dropdown-item" href="{{route('user.index')}}">Asignar usuarios</a></li>
+
               <li>
                 <hr class="dropdown-divider">
               </li>

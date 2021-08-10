@@ -15,8 +15,22 @@ class RoleSeeder extends Seeder
     public function run()
     {
         //
-        $roleAdmin=Role::create(['name'=>'admin']);
-        $roleDocente = Role::create(['name'=>'docente']);
-        $roleAlumno = Role::create(['name'=>'alumno']);
+        $rolAdmin=Role::create(['name'=>'admin']);
+        $rolDocente = Role::create(['name'=>'docente']);
+        $rolAlumno = Role::create(['name'=>'alumno']);
+
+Permission::create(['name'=>'admin.ingresar.usuario'])->syncRoles([$rolAdmin]);
+Permission::create(['name'=>'admin.ingresar.profesores'])->syncRoles([$rolAdmin]);
+Permission::create(['name'=>'admin.asingar.profesores'])->syncRoles([$rolAdmin]);
+Permission::create(['name'=>'admin.asingar.alumnos'])->syncRoles([$rolAdmin]);
+Permission::create(['name'=>'admin.asignar.materias.alumno'])->syncRoles([$rolAdmin]);
+Permission::create(['name'=>'admin.asignar.materias.profesor'])->syncRoles([$rolAdmin]);
+Permission::create(['name'=>'admin.asignar.permisos'])->syncRoles([$rolAdmin]);
+Permission::create(['name'=>'admin.asignar.admin'])->syncRoles([$rolAdmin]);
+
+Permission::create(['name'=>'docente.calificar.materias'])->syncRoles([$rolAdmin,$rolDocente]);
+Permission::create(['name'=>'alumno.materias'])->syncRoles([$rolAlumno]);
+
+
     }
 }
